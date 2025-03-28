@@ -43,13 +43,13 @@ export const login = (req, res) => {
         }
 
         if(data.length === 0) {
-            return res.status(404).json("Wrong email or password.");
+            return res.status(401).json("Wrong email or password.");
         }
 
         const authSucces = bcrypt.compareSync(req.body.password, data[0].hash);
 
         if(!authSucces) {
-            return res.status(404).josn("Wrong email or password.");
+            return res.status(401).josn("Wrong email or password.");
         }
 
         const token = jwt.sign({id: data[0].id}, "jwtkey");
